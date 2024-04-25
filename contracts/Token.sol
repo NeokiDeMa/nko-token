@@ -7,7 +7,7 @@ import {ERC20Votes} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Vo
 import {Nonces} from "@openzeppelin/contracts/utils/Nonces.sol";
 
 contract NikoToken is ERC20, ERC20Permit, ERC20Votes {
-  constructor() ERC20("NIKO Token", "NKO") ERC20Permit("NIKO Token") {
+  constructor() ERC20("Niko Token", "NKO") ERC20Permit("Niko Token") {
     _mint(_msgSender(), 3e27);
   }
 

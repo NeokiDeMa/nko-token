@@ -11,8 +11,9 @@ contract NikoSwap is Ownable, ReentrancyGuard {
     address sender;
     uint256 amount;
   }
-  mapping(address sender => uint256 amount) takers;
-  address public constant paradise = address(0x1); // TODO define the contract
+  mapping(address sender => uint256 amount) public takers;
+  // prettier-ignore
+  address public constant paradise = address(0x8658928deDEf0442b96891880a1E22bDbE0Dd45D);
   IERC20 public oldToken;
   IERC20 public newToken;
 
@@ -38,7 +39,7 @@ contract NikoSwap is Ownable, ReentrancyGuard {
 
     delete takers[taker];
     oldToken.safeTransferFrom(taker, paradise, amount);
-    newToken.safeTransferFrom(address(this), taker, amount);
+    newToken.safeTransfer(taker, amount);
     emit Claimed(taker, amount);
   }
 
@@ -48,6 +49,11 @@ contract NikoSwap is Ownable, ReentrancyGuard {
 
   function updateTakersClaims(Claim[] calldata claims) external onlyOwner {
     _setClaimers(claims);
+  }
+
+  function withdraw(uint256 amount) external onlyOwner {
+    address owner = owner();
+    newToken.safeTransfer(owner, amount);
   }
 
   function _setClaimers(Claim[] calldata claims) internal {
