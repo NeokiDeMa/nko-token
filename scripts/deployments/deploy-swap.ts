@@ -5,9 +5,7 @@ async function main() {
     "0x32A3791036035D4878bf7E3334e39b747390CC7b",
     "0xca3C652e994D88740b8Ab3b33B4935592aB1DfbA",
   ]);
-  console.log(swap, "Swap");
   await swap.waitForDeployment();
-  console.log("swap deployed, now waiting");
   await wait();
   await run("verify:verify", {
     address: swap.target,
