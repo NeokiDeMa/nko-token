@@ -11,6 +11,7 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       polygonAmoy: vars.get("POLYGON_AMOY_API_KEY"),
+      polygon: vars.get("POLYGON_MAINNET_API_KEY"),
     },
   },
   networks: {
@@ -28,8 +29,8 @@ const config: HardhatUserConfig = {
     },
     polygon: {
       accounts: [process.env.DEPLOYER_ACCOUNT as string],
-      url: process.env.ALCHEMY_AMOY_URL,
-      gasPrice: "auto",
+      url: process.env.ALCHEMY_POLYGON_MAINNET_URL,
+      gasPrice: 100000000000,
     },
   },
 };
