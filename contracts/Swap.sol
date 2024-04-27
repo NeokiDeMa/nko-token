@@ -36,9 +36,13 @@ contract NikoSwap is Ownable, ReentrancyGuard {
       swapBalance >= amount,
       "Swap: contract doesnt have enough NKO v2 to withdraw"
     );
-
     delete takers[taker];
-    oldToken.safeTransferFrom(taker, paradise, amount);
+
+    // if taker has old token swap the same amount
+    uint256 oldTokenAmount = oldToken.balanceOf(taker);
+    if (oldTokenAmount >= amount) {
+      oldToken.safeTransferFrom(taker, paradise, amount);
+    }
     newToken.safeTransfer(taker, amount);
     emit Claimed(taker, amount);
   }
